@@ -15,10 +15,11 @@ def index_view(request):
 
 
 def single_view(request,pid):
-    post = get_object_or_404(Post,id=pid)
     now = timezone.now()
+    posts = Post.objects.filter(published_date__lte=now)
+    post = get_object_or_404(posts,id=pid)
     
-    if now > post.published_date:
+    if post:
         post.counted_views += 1
         post.save()
         context = {'post':post}
