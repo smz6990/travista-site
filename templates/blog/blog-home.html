@@ -133,13 +133,13 @@
                 alt=""
               />
             </div>
-            <a class="posts-title" href="{% url 'blog:single'%}"
+            <a class="posts-title" href="{% url 'blog:single' post.id %}"
               ><h3>{{ post.title }}</h3></a
             >
             <p class="excert">
               {{ post.content }}
             </p>
-            <a href="{% url 'blog:single'%}" class="primary-btn">View More</a>
+            <a href="{% url 'blog:single' post.id %}" class="primary-btn">View More</a>
           </div>
         </div>
         {% endfor %}
@@ -222,7 +222,7 @@
                   />
                 </div>
                 <div class="details">
-                  <a href="{% url 'blog:single'%}"
+                  <a href="#"
                     ><h6>Space The Final Frontier</h6></a
                   >
                   <p>02 Hours ago</p>
@@ -237,7 +237,7 @@
                   />
                 </div>
                 <div class="details">
-                  <a href="{% url 'blog:single'%}"
+                  <a href="#"
                     ><h6>The Amazing Hubble</h6></a
                   >
                   <p>02 Hours ago</p>
@@ -252,7 +252,7 @@
                   />
                 </div>
                 <div class="details">
-                  <a href="{% url 'blog:single'%}"
+                  <a href="#"
                     ><h6>Astronomy Or Astrology</h6></a
                   >
                   <p>02 Hours ago</p>
@@ -267,7 +267,7 @@
                   />
                 </div>
                 <div class="details">
-                  <a href="{% url 'blog:single'%}"
+                  <a href="#"
                     ><h6>Asteroids telescope</h6></a
                   >
                   <p>02 Hours ago</p>
