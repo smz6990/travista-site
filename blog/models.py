@@ -33,3 +33,7 @@ class Post (models.Model):
     
     def __str__(self):
         return ' {} - {} '.format(self.id,self.title)
+    
+    def snippets(self):
+        #also we can use 'truncatewords:20' as a filter in our template tag
+        return ' '.join((self.content.split(" ",maxsplit=20))[:20]) + ' ...' 
