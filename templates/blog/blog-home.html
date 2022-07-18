@@ -96,16 +96,11 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 posts-list">
-
-
         {% for post in posts %}
         <div class="single-post row">
           <div class="col-lg-3 col-md-3 meta-details">
             <ul class="tags">
-              <li><a href="#">Food,</a></li>
-              <li><a href="#">Technology,</a></li>
-              <li><a href="#">Politics,</a></li>
-              <li><a href="#">Lifestyle</a></li>
+              <li><a href="#">{{ post.category.all|join:', ' }}</a></li>
             </ul>
             <div class="user-details row">
               <p class="user-name col-lg-12 col-md-12 col-6">
@@ -117,7 +112,8 @@
                 <span class="lnr lnr-calendar-full"></span>
               </p>
               <p class="view col-lg-12 col-md-12 col-6">
-                <a href="#">{{ post.counted_views }} Views</a> <span class="lnr lnr-eye"></span>
+                <a href="#">{{ post.counted_views }} Views</a>
+                <span class="lnr lnr-eye"></span>
               </p>
               <p class="comments col-lg-12 col-md-12 col-6">
                 <a href="#">06 Comments</a>
@@ -127,23 +123,18 @@
           </div>
           <div class="col-lg-9 col-md-9">
             <div class="feature-img">
-              <img
-                class="img-fluid"
-                src="{{ post.image.url }}"
-                alt=""
-              />
+              <img class="img-fluid" src="{{ post.image.url }}" alt="" />
             </div>
             <a class="posts-title" href="{% url 'blog:single' pid=post.id %}"
               ><h3>{{ post.title }}</h3></a
             >
-            <p class="excert">
-              {{ post.content }}
-            </p>
-            <a href="{% url 'blog:single' pid=post.id %}" class="primary-btn">View More</a>
+            <p class="excert">{{ post.content }}</p>
+            <a href="{% url 'blog:single' pid=post.id %}" class="primary-btn"
+              >View More</a
+            >
           </div>
         </div>
         {% endfor %}
-
 
         <nav class="blog-pagination justify-content-center d-flex">
           <ul class="pagination">
@@ -222,9 +213,7 @@
                   />
                 </div>
                 <div class="details">
-                  <a href="#"
-                    ><h6>Space The Final Frontier</h6></a
-                  >
+                  <a href="#"><h6>Space The Final Frontier</h6></a>
                   <p>02 Hours ago</p>
                 </div>
               </div>
@@ -237,9 +226,7 @@
                   />
                 </div>
                 <div class="details">
-                  <a href="#"
-                    ><h6>The Amazing Hubble</h6></a
-                  >
+                  <a href="#"><h6>The Amazing Hubble</h6></a>
                   <p>02 Hours ago</p>
                 </div>
               </div>
@@ -252,9 +239,7 @@
                   />
                 </div>
                 <div class="details">
-                  <a href="#"
-                    ><h6>Astronomy Or Astrology</h6></a
-                  >
+                  <a href="#"><h6>Astronomy Or Astrology</h6></a>
                   <p>02 Hours ago</p>
                 </div>
               </div>
@@ -267,9 +252,7 @@
                   />
                 </div>
                 <div class="details">
-                  <a href="#"
-                    ><h6>Asteroids telescope</h6></a
-                  >
+                  <a href="#"><h6>Asteroids telescope</h6></a>
                   <p>02 Hours ago</p>
                 </div>
               </div>
