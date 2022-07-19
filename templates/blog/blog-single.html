@@ -1,4 +1,7 @@
-{% extends 'base.html' %} {% load static %} {% load blog_tags %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% load blog_tags %} 
+{% block content %}
 
 <!-- start banner Area -->
 <section class="relative about-banner">
@@ -34,9 +37,12 @@
           <div class="col-lg-3 col-md-3 meta-details">
             <ul class="tags">
               {% for cat in post.category.all %}
-              <a style="color: #777777;" href="#">{{ cat.name }}</a>
-              {% if not forloop.last %},{% endif %}
-              {% endfor %}
+              <a
+                style="color: #777777"
+                href="{% url 'blog:category' cat_name=cat.name %}"
+                >{{ cat.name }}</a
+              >
+              {% if not forloop.last %},{% endif %} {% endfor %}
             </ul>
             <div class="user-details row">
               <p class="user-name col-lg-12 col-md-12 col-6">
@@ -84,10 +90,7 @@
               <div class="thumb">
                 {% if prevpost %}
                 <a href="{% url 'blog:single' id=prevpost.id %}"
-                  ><img
-                    class="img-fluid"
-                    src="{{ prevpost.image.url }}"
-                    alt=""
+                  ><img class="img-fluid" src="{{ prevpost.image.url }}" alt=""
                 /></a>
                 {% else %}
                 <a href="{% url 'blog:index' %}"
@@ -155,10 +158,7 @@
               <div class="thumb">
                 {% if nextpost %}
                 <a href="{% url 'blog:single' id=nextpost.id %}"
-                  ><img
-                    class="img-fluid"
-                    src="{{ nextpost.image.url }}"
-                    alt=""
+                  ><img class="img-fluid" src="{{ nextpost.image.url }}" alt=""
                 /></a>
                 {% else %}
                 <a href="{% url 'blog:index' %}"
@@ -312,14 +312,13 @@
       </div>
       <div class="col-lg-4 sidebar-widgets">
         <div class="widget-wrap">
-          
-          {% include 'blog/blog-search-bar.html' %}
-          {% include 'blog/blog-writer.html' %}
-          {% popular_posts %}
-          {% include 'blog/blog-ads.html' %}
-          {% include 'blog/blog-category.html' %}
-          {% include 'blog/blog-newsletter.html' %}         
-          {% include 'blog/blog-tag-widget.html' %}
+          {% include 'blog/blog-search-bar.html' %} 
+          {% include 'blog/blog-writer.html' %} 
+          {% popular_posts %} 
+          {% include 'blog/blog-ads.html' %} 
+          {% post_categories %} 
+          {% include 'blog/blog-newsletter.html' %} 
+          {% include 'blog/blog-post-tags.html' %}
         </div>
       </div>
     </div>

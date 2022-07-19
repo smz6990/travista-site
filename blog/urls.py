@@ -4,8 +4,9 @@ from .views import *
 app_name = 'blog'
 
 urlpatterns = [
-    path('', index_view,name='index'),
-    path('<int:id>/',single_view,name='single'),
+    path('', blog_index,name='index'),
+    path('<int:id>/',blog_single,name='single'),
+    path('category/<str:cat_name>/',blog_category,name='category'),
     path('test/',test,name='single'),
     
 ]

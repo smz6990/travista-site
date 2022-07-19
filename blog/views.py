@@ -7,7 +7,7 @@ from blog.models import Post
 from django.utils import timezone
 # Create your views here.
 
-def index_view(request):
+def blog_index(request):
     
     now = timezone.now()
     posts = Post.objects.filter(published_date__lte=now)
@@ -15,7 +15,7 @@ def index_view(request):
     return render(request,'blog/blog-home.html',context)
 
 
-def single_view(request,id):
+def blog_single(request,id):
     
     now = timezone.now()
     posts = Post.objects.filter(published_date__lte=now)
@@ -23,8 +23,10 @@ def single_view(request,id):
     if post:
         post.counted_views += 1
         post.save()
-        nextpost = Post.objects.filter(published_date__gt=post.published_date).exclude(published_date__gt=now).order_by('published_date').first()
+        nextpost = Post.objects.filter(published_date__gt=post.published_date).exclude(published_date__gt=now). order_by('published_date').first()
+        
         prevpost = Post.objects.filter(published_date__lt=post.published_date).exclude(published_date__gt=now).order_by('published_date').last()
+        
         context = { 'post':post , 'nextpost':nextpost , 'prevpost':prevpost }
         return render(request,'blog/blog-single.html',context)
     
@@ -33,3 +35,10 @@ def single_view(request,id):
     
 def test(request):
     return render(request,'test.html')
+
+def blog_category(request,cat_name):
+    now = timezone.now()
+    posts = Post.objects.filter(published_date__lte=now)
+    posts = posts.filter(category__name=cat_name)
+    context = {'posts':posts}
+    return render(request,'blog/blog-home.html',context)
