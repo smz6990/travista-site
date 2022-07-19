@@ -1,8 +1,8 @@
 <div class="single-sidebar-widget search-widget">
-  <form class="search-form" action="#">
+  <form class="search-form" action="{% url 'blog:search' %}" method="get">
     <input
       placeholder="Search Posts"
-      name="search"
+      name="s"
       type="text"
       onfocus="this.placeholder = ''"
       onblur="this.placeholder = 'Search Posts'"

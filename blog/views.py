@@ -39,3 +39,14 @@ def blog_single(request,id):
     
 def test(request):
     return render(request,'test.html')
+
+def blog_search(request):
+    now = timezone.now()
+    posts = Post.objects.filter(published_date__lte=now)
+    
+    if request.method == "GET":
+        if s := request.GET.get('s'):
+            posts = posts.filter(content__contains = s)
+    
+    context = {'posts':posts}
+    return render(request,'blog/blog-home.html',context)
