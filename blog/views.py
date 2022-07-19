@@ -25,7 +25,7 @@ def blog_index(request,**kwargs):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
     
-    context = {'posts':posts,'page':page}
+    context = {'posts':posts}
     return render(request,'blog/blog-home.html',context)
 
 
@@ -55,6 +55,16 @@ def blog_search(request):
     if request.method == "GET":
         if s := request.GET.get('s'):
             posts = posts.filter(content__contains = s)
+    
+    paginator = Paginator(posts,5)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    
     
     context = {'posts':posts}
     return render(request,'blog/blog-home.html',context)
