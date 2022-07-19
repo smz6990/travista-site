@@ -25,7 +25,7 @@ def blog_index(request,**kwargs):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
     
-    context = {'posts':posts}
+    context = {'posts':posts,'page':page}
     return render(request,'blog/blog-home.html',context)
 
 
