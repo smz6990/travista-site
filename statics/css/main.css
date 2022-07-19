@@ -3656,6 +3656,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .widget-wrap .popular-post-widget .popular-post-list .thumb img {
   width: 100%;
+  max-width: 90px;
 }
 
 .widget-wrap .popular-post-widget .single-post-list {
@@ -3907,6 +3908,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
+  max-width: 100px;
 }
 
 .single-post-area .navigation-area .nav-left .lnr {
@@ -3946,6 +3948,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
+  max-width: 100px;
 }
 
 .single-post-area .navigation-area .nav-right .lnr {

@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% load blog_tags %} {% block content %}
 
 <!-- start banner Area -->
 <section class="relative about-banner">
@@ -86,14 +86,14 @@
                 <a href="{% url 'blog:single' id=prevpost.id %}"
                   ><img
                     class="img-fluid"
-                    src="{% static 'img/blog/prev.jpg' %}"
+                    src="{{ prevpost.image.url }}"
                     alt=""
                 /></a>
                 {% else %}
                 <a href="{% url 'blog:index' %}"
                   ><img
                     class="img-fluid"
-                    src="{% static 'img/blog/prev.jpg' %}"
+                    src="{% static 'img/home.png' %}"
                     alt=""
                 /></a>
                 {% endif %}
@@ -157,14 +157,14 @@
                 <a href="{% url 'blog:single' id=nextpost.id %}"
                   ><img
                     class="img-fluid"
-                    src="{% static 'img/blog/next.jpg' %}"
+                    src="{{ nextpost.image.url }}"
                     alt=""
                 /></a>
                 {% else %}
                 <a href="{% url 'blog:index' %}"
                   ><img
                     class="img-fluid"
-                    src="{% static 'img/blog/next.jpg' %}"
+                    src="{% static 'img/home.png' %}"
                     alt=""
                 /></a>
                 {% endif %}
@@ -315,7 +315,7 @@
           
           {% include 'blog/blog-search-bar.html' %}
           {% include 'blog/blog-writer.html' %}
-          {% include 'blog/blog-popular-post.html' %}
+          {% popular_posts %}
           {% include 'blog/blog-ads.html' %}
           {% include 'blog/blog-category.html' %}
           {% include 'blog/blog-newsletter.html' %}         
