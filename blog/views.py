@@ -7,10 +7,12 @@ from blog.models import Post
 from django.utils import timezone
 # Create your views here.
 
-def blog_index(request):
+def blog_index(request,cat_name=None):
     
     now = timezone.now()
     posts = Post.objects.filter(published_date__lte=now)
+    if cat_name:
+        posts = posts.filter(category__name=cat_name)
     context = {'posts':posts}
     return render(request,'blog/blog-home.html',context)
 
@@ -35,10 +37,3 @@ def blog_single(request,id):
     
 def test(request):
     return render(request,'test.html')
-
-def blog_category(request,cat_name):
-    now = timezone.now()
-    posts = Post.objects.filter(published_date__lte=now)
-    posts = posts.filter(category__name=cat_name)
-    context = {'posts':posts}
-    return render(request,'blog/blog-home.html',context)
