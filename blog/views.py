@@ -47,9 +47,7 @@ def blog_single(request,id):
     # raise 404 page not found if the post is not published yet
     raise Http404("There is no post with the given id")
     
-def test(request):
-    return render(request,'test.html')
-
+    
 def blog_search(request):
     now = timezone.now()
     posts = Post.objects.filter(published_date__lte=now)
