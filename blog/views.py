@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404
 from django.http import Http404
 from blog.models import Post
 
-# from django.core.paginator import Paginator
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 from django.utils import timezone
 # Create your views here.
@@ -15,6 +15,16 @@ def blog_index(request,**kwargs):
         posts = posts.filter(category__name=kwargs['cat_name'])
     if kwargs.get('author_username') != None:
         posts = posts.filter(author__username=kwargs['author_username'])
+        
+    paginator = Paginator(posts,5)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    
     context = {'posts':posts}
     return render(request,'blog/blog-home.html',context)
 
