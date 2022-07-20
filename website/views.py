@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-
+from django.contrib import  messages
 from website.forms import ContactForm,NewsletterForm
 
 
@@ -22,11 +22,12 @@ def form_view(request):
         form = ContactForm(request.POST)
         print(form.data)
         if form.is_valid():
-            print(request)
             form.save()
+            messages.success(request, 'Contact request submitted successfully.')
             return HttpResponseRedirect(reverse('website:contact'))
         else :
-            print('not valid')
+            messages.error(request, 'Invalid form submission.')
+            messages.error(request, form.errors)
             return HttpResponseRedirect(reverse('website:contact'))
     else:
         return HttpResponseRedirect(reverse('website:contact'))
