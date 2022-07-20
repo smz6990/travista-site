@@ -8,3 +8,11 @@
     </div>
  {% endfor %}
 {% endif %}
+
+{% comment %} {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %} {% endcomment %}
