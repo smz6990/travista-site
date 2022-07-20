@@ -1,4 +1,3 @@
-import email
 from django.db import models
 
 class Contact(models.Model):
@@ -15,3 +14,10 @@ class Contact(models.Model):
         
     def __str__(self):
         return "{} - {}".format(self.name,self.email)
+    
+
+class Newsletter(models.Model):
+    email = models.EmailField()
+    
+    def __str__(self):
+        return self.email
