@@ -20,10 +20,25 @@ def contact_view(request):
 def form_view(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
+        print(form.data)
         if form.is_valid():
+            print(request)
             form.save()
             return HttpResponseRedirect(reverse('website:contact'))
         else :
+            print('not valid')
             return HttpResponseRedirect(reverse('website:contact'))
     else:
         return HttpResponseRedirect(reverse('website:contact'))
+    
+def newsletter_view(request):
+    if request.method == "POST":
+        form = NewsletterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+        else :
+            print('not valid')
+            return HttpResponseRedirect('/')
+    else:
+        return HttpResponseRedirect('/')
