@@ -20,26 +20,38 @@ def contact_view(request):
 def form_view(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
-        print(form.data)
         if form.is_valid():
-            form.save()
+           
+            new = form.save(commit=False)
+            new.name = 'Anonymous'
+            new.save()
+            
             messages.success(request, 'Contact request submitted successfully.')
             return HttpResponseRedirect(reverse('website:contact'))
+        
         else :
             messages.error(request, 'Invalid form submission.')
             messages.error(request, form.errors)
             return HttpResponseRedirect(reverse('website:contact'))
+        
     else:
+        messages.error(request, 'Bad request.')
         return HttpResponseRedirect(reverse('website:contact'))
+    
     
 def newsletter_view(request):
     if request.method == "POST":
         form = NewsletterForm(request.POST)
+        
         if form.is_valid():
             form.save()
+            messages.success(request, 'Contact request submitted successfully.')
             return HttpResponseRedirect('/')
+        
         else :
-            print('not valid')
+            messages.error(request, 'Invalid form submission.')
+            messages.error(request, form.errors)
             return HttpResponseRedirect('/')
     else:
+        messages.error(request, 'Bad request.')
         return HttpResponseRedirect('/')
