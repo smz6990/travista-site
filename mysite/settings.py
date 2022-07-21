@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     
     'django_summernote',
+    'captcha',
     "debug_toolbar",
     'django_extensions',
     'robots',
