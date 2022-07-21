@@ -13,9 +13,14 @@ def blog_index(request,**kwargs):
     posts = Post.objects.filter(published_date__lte=now)
     if kwargs.get('cat_name') != None:
         posts = posts.filter(category__name=kwargs['cat_name'])
+    
     if kwargs.get('author_username') != None:
         posts = posts.filter(author__username=kwargs['author_username'])
+    
+    if kwargs.get('tag_name') != None:
+        posts = posts.filter(tags__name__in=[kwargs['tag_name']])
         
+    
     paginator = Paginator(posts,5)
     page = request.GET.get('page')
     try:

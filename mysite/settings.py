@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     'django_extensions',
     'robots',
+    "taggit",
     
     'website.apps.WebsiteConfig',
     'blog.apps.BlogConfig',
