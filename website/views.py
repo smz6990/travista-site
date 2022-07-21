@@ -22,39 +22,25 @@ def form_view(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-           
-            # new = form.save(commit=False)
-            # new.name = 'Anonymous'
-            # new.save()
+            # new = form.save(commit=False)  # new.name = 'Anonymous'  # new.save()
             form.save()
-            
             messages.success(request, 'Contact submitted successfully.')
-            # return  render(request,'website/contact.html')
-            return HttpResponseRedirect(reverse('website:contact'))
-        
         else :
             messages.error(request, 'Invalid form submission.')
             messages.error(request, form.errors)
-            # return  render(request,'website/contact.html')
-            return HttpResponseRedirect(reverse('website:contact'))
-        
-    else:
-        # return  render(request,'website/contact.html')
-        return HttpResponseRedirect(reverse('website:contact'))
-    
-    
+    # return  render(request,'website/contact.html')
+    return HttpResponseRedirect(reverse('website:contact'))
+       
 def newsletter_view(request):
     if request.method == "POST":
         form = NewsletterForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Newsletter submitted successfully.')
-            return HttpResponseRedirect('/')
         
         else :
             form = NewsletterForm()
             messages.error(request, 'Invalid form submission.')
             messages.error(request, form.errors)
-            return HttpResponseRedirect('/')
-    else:
-        return HttpResponseRedirect('/')
+    
+    return HttpResponseRedirect('/')

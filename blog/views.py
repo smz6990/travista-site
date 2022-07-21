@@ -1,6 +1,10 @@
 from django.shortcuts import render,get_object_or_404
-from django.http import Http404
+from django.http import Http404,HttpResponseRedirect
+from django.urls import reverse
 from blog.models import Post,Comment
+from blog.forms import CommentForm
+from django.contrib import  messages
+
 
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
@@ -34,12 +38,14 @@ def blog_index(request,**kwargs):
     return render(request,'blog/blog-home.html',context)
 
 
+
 def blog_single(request,id):
     
     now = timezone.now()
     posts = Post.objects.filter(published_date__lte=now)
     post = get_object_or_404(posts,id=id)
     comments = Comment.objects.filter(post=post.id,approved=True)
+    form = CommentForm()
     if post:
         post.counted_views += 1
         post.save()
@@ -47,11 +53,25 @@ def blog_single(request,id):
         
         prevpost = Post.objects.filter(published_date__lt=post.published_date).exclude(published_date__gt=now).order_by('published_date').last()
         
-        context = { 'post':post ,'comments':comments, 'nextpost':nextpost , 'prevpost':prevpost }
+        context = { 'post':post ,'form':form,'comments':comments, 'nextpost':nextpost , 'prevpost':prevpost }
         return render(request,'blog/blog-single.html',context)
     
     # raise 404 page not found if the post is not published yet
     raise Http404("There is no post with the given id")
+
+
+def blog_comment(request,id):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Comment submitted successfully.')
+        else:
+            messages.error(request, 'Invalid comment submission.')
+            messages.error(request, form.errors)
+            
+    # reverse('edit_project', kwargs={'project_id':4})
+    return HttpResponseRedirect(reverse('blog:single',kwargs={'id':id}))
     
     
 def blog_search(request):
