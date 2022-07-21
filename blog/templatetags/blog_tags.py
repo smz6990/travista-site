@@ -1,19 +1,15 @@
 from django import template
-from blog.models import Post,Category
+from blog.models import Post,Category,Comment
 
 from django.utils import timezone
 
 register = template.Library()
 
-@register.simple_tag(name='postCount')
-def function():
-    posts_count = Post.objects.filter(published_date__lte=timezone.now()).count()
-    return posts_count
+@register.simple_tag(name='comments_count')
+def function(id):
+    return Comment.objects.filter(post=id,approved=True).count()
+    
 
-
-@register.filter
-def snippet(value,arg=20):    
-    return value[:arg] + ('...' if len(value)> arg else '' )
 
 @register.inclusion_tag('blog/blog-popular-post.html')
 def popular_posts(arg=4):

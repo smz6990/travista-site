@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import Http404
-from blog.models import Post
+from blog.models import Post,Comment
 
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
@@ -39,6 +39,7 @@ def blog_single(request,id):
     now = timezone.now()
     posts = Post.objects.filter(published_date__lte=now)
     post = get_object_or_404(posts,id=id)
+    comments = Comment.objects.filter(post=post.id,approved=True)
     if post:
         post.counted_views += 1
         post.save()
@@ -46,7 +47,7 @@ def blog_single(request,id):
         
         prevpost = Post.objects.filter(published_date__lt=post.published_date).exclude(published_date__gt=now).order_by('published_date').last()
         
-        context = { 'post':post , 'nextpost':nextpost , 'prevpost':prevpost }
+        context = { 'post':post ,'comments':comments, 'nextpost':nextpost , 'prevpost':prevpost }
         return render(request,'blog/blog-single.html',context)
     
     # raise 404 page not found if the post is not published yet
