@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.humanize',
     
+    'django_summernote',
     "debug_toolbar",
     'django_extensions',
     'robots',
@@ -60,7 +61,20 @@ INSTALLED_APPS = [
     'website.apps.WebsiteConfig',
     'blog.apps.BlogConfig',
 ]
+
+# site framework 
 SITE_ID = 2
+
+# suummernote configs
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+SUMMERNOTE_THEME = 'bs4'  # Show summernote with Bootstrap4
+SUMMERNOTE_CONFIG = {
+    # Using SummernoteWidget - iframe mode, default
+    'iframe': True,
+    
+    }
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -157,7 +171,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+# django debug toolbar config
 INTERNAL_IPS = [
 
     "127.0.0.1",
