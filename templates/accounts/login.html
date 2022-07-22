@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Log in</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6 text-center mb-5">
+            <h2 class="heading-section">Log in</h2>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-7 col-lg-6 col-xl-5">
+            <div class="login-wrap p-4 p-md-5">
+              <h3 class="mb-4">
+                Hello! <span>Please log in to continue</span>
+              </h3>
+              <form
+                action="{% url 'accounts:login' %}"
+                method="post"
+                class="signup-form"
+              >
+                {% csrf_token %}
+                <div class="form-group mb-4">
+                  <input
+                    type="text"
+                    name="username"
+                    class="form-control"
+                    placeholder="Username"
+                  />
+                </div>
+                <div class="form-group mb-4">
+                  <input
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    placeholder="Email"
+                  />
+                </div>
+                <div class="form-group mb-4">
+                  <input
+                    type="password"
+                    name="password"
+                    required=""
+                    class="form-control"
+                    placeholder="Password"
+                  />
+                </div>
+                <div class="form-group">
+                  <button
+                    type="submit"
+                    class="btn btn-primary rounded submit p-3"
+                  >
+                    Log in
+                  </button>
+                </div>
+              </form>
+              {% include 'messages.html' %}
+
+              <div class="w-100 social-wrap">
+                <p class="mt-4">
+                  Don't have an accounts!
+                  <a href="{% url 'accounts:signup' %}">Sign up</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>
