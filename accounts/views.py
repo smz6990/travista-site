@@ -4,75 +4,101 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib import  messages
 from django.urls import reverse
 from django.contrib.auth.models import User
-
-
-
-# Create your views here.
-"""
-from django.contrib.auth import authenticate, login
-
-def my_view(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        # Redirect to a success page.
-        ...
-    else:
-        # Return an 'invalid login' error message.
-        ...
-        
-        
-from django.contrib.auth import logout
-
-def logout_view(request):
-    logout(request)
-    # Redirect to a success page.
-        
-        
 from django.contrib.auth.decorators import login_required
+# from accounts.forms import SignUpForm
+from django.contrib.auth.forms import UserCreationForm
 
-@login_required(login_url='/accounts/login/')
-def my_view(request):
-    ...
-        
-"""
+
+
 def login_view(request):
+    
     if not request.user.is_authenticated:
-        if request.method == 'POST':
-            
-            
-            if request.POST['username'] != None:
-                username = request.POST['username']
-                
-            if request.POST['email'] != None:
-                email = request.POST['email']
-                username = User.objects.get(email=email)
-                
+        if request.method == 'POST': 
             password = request.POST['password']    
-            user = authenticate(request, username=username, email=email, password=password)
+            
+            if request.POST['username'] != None and request.POST['username'] != '':
+                username = request.POST['username']
+                user = authenticate(request, username=username, password=password)
+                
+            # elif request.POST['email'] != None:
+            #     email = request.POST['email']
+            #     username = User.objects.get(email=email)
+            #     user = authenticate(request, username=username, email=email, password=password)
+                
             if user is not None:
                 login(request, user)
                 messages.success(request, f'Welcome {username}')
                 return HttpResponseRedirect(reverse('website:index'))
             else:
-                messages.error(request, 'Username or password is incorrect')
+                messages.error(request, 'Inputs are incorrect')
                 return HttpResponseRedirect(reverse('accounts:login'))
         else:
             return render(request,'accounts/login.html')
+
     return HttpResponseRedirect(reverse('website:index'))
 
 
 
 def signup_view(request):
-    return render(request,'accounts/signup.html')
-
-
-
-def logout_view(request):
-    if request.user.is_authenticated:
-        logout(request)
-        messages.success(request, 'Successfully logged out')
+    if not request.user.is_authenticated:
+        if request.method == 'POST':
+            form = UserCreationForm(request.POST)
+            username = request.POST['username']
+            email = request.POST['email']
+            password = request.POST['password1']
+            user = authenticate(request,username=username,email=email, password=password)
+            if (user is None) and (form.is_valid()):
+                form.save()
+                # user = User.objects.create_user(username,email,password)
+                user = authenticate(request,username=username,email=email, password=password) 
+                login(request,user)
+                messages.success(request,'User created successfully')
+                messages.success(request,f'Welcome {username}')
+                return HttpResponseRedirect(reverse('website:index'))
+            
+            else:
+                messages.error(request, 'Inputs are incorrect')
+                messages.error(request, form.errors)                
+                return HttpResponseRedirect(reverse('accounts:signup'))
+                
+        elif request.method == "GET":
+            form = UserCreationForm()
+            context = {
+                'form':form
+            }
+            return render(request,'accounts/signup.html',context)
+    else:
+        return HttpResponseRedirect(reverse('website:index'))
         
+        
+        
+    #     if request.method =='POST':
+    #         form = SignUpForm(request.POST)
+    #         if form.is_valid():
+    #             form.save()
+    #             username = request.POST['username']
+    #             email = request.POST['email']
+    #             password = request.POST['password']
+    #             user = authenticate(request, username=username, email=email, password=password)
+    #             login(request,user)
+    #             messages.success(request, f'Welcome {username}')
+    #             return HttpResponseRedirect(reverse('website:index'))
+    #         else:
+    #             messages.error(request,'Inputs are incorrect')
+    #             messages.error(request,form.errors)
+    #             return HttpResponseRedirect(reverse('accounts:signup',kwargs={'form':form}))
+    #     else: # GET
+    #         form = SignUpForm()
+    #         return render(request,'accounts/signup.html',{'form':form})
+    # else: # is_authenticated
+    #     return HttpResponseRedirect(reverse('website:index'))
+   
+    
+
+
+@login_required(redirect_field_name='/')
+def logout_view(request):
+ 
+    logout(request)
+    messages.success(request, 'Successfully logged out')      
     return HttpResponseRedirect(reverse('website:index'))

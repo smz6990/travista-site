@@ -1,4 +1,5 @@
 {% load static %}
+{% load accounts_tags %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,30 +43,28 @@
               >
                 {% csrf_token %}
                 <div class="form-group mb-4">
-                  <input
+                  <!-- <input
                     type="text"
                     name="first_name"
-                    required=""
                     class="form-control"
-                    placeholder="First Name"
+                    placeholder="First Name (Optional.)"
                   />
                 </div>
                 <div class="form-group mb-4">
                   <input
                     type="text"
                     name="last_name"
-                    required=""
                     class="form-control"
-                    placeholder="Last Name"
+                    placeholder="Last Name (Optional.)"
                   />
-                </div>
+                </div> -->
                 <div class="form-group mb-4">
                   <input
                     type="text"
                     name="username"
                     required=""
                     class="form-control"
-                    placeholder="User Name"
+                    placeholder="User Name (Required.)"
                   />
                 </div>
                 <div class="form-group mb-4">
@@ -74,7 +73,7 @@
                     name="email"
                     required=""
                     class="form-control"
-                    placeholder="Email"
+                    placeholder="Email (Required.)"
                   />
                 </div>
                 <div class="form-group mb-4">
@@ -92,7 +91,7 @@
                     name="password2"
                     required=""
                     class="form-control"
-                    placeholder="Confirm Password"
+                    placeholder="Confirm Password."
                   />
                 </div>
                 <div class="form-group">
