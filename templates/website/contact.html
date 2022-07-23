@@ -63,6 +63,10 @@
           
           <div class="row">
             <div class="col-lg-6 form-group">
+              {% if requset.user.is_authenticated %}
+              <input type="hidden" name="name" value="{{ request.user.username }}">
+              <input type="hidden" name="email" value="{{ requset.user.email }}" >
+              {% else %}
               <input
                 name="name"
                 placeholder="Enter your name"
@@ -83,7 +87,7 @@
                 required=""
                 type="email"
               />
-
+              {% endif %}
               <input
                 name="subject"
                 placeholder="Enter subject"
