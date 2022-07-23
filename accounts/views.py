@@ -44,12 +44,20 @@ def signup_view(request):
         if request.method == 'POST':
             form = UserCreationForm(request.POST)
             username = request.POST['username']
-            email = request.POST['email']
             password = request.POST['password1']
             user = authenticate(request,username=username, password=password)
-            if (user is None) and (form.is_valid()):
+
+            if (user is None) and (form.is_valid()):                
                 user = form.save(commit=False)
+                email = request.POST['email'] 
                 user.email = email
+                if request.POST['first_name'] != None:
+                    first_name = request.POST['first_name']
+                    user.first_name = first_name
+                if request.POST['last_name'] != None:
+                    last_name = request.POST['last_name']
+                    user.last_name = last_name
+                    
                 user.save()
                 user = authenticate(request,username=username, password=password) 
                 login(request,user)
