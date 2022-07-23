@@ -46,11 +46,12 @@ def signup_view(request):
             username = request.POST['username']
             email = request.POST['email']
             password = request.POST['password1']
-            user = authenticate(request,username=username,email=email, password=password)
+            user = authenticate(request,username=username, password=password)
             if (user is None) and (form.is_valid()):
-                form.save()
-                # user = User.objects.create_user(username,email,password)
-                user = authenticate(request,username=username,email=email, password=password) 
+                user = form.save(commit=False)
+                user.email = email
+                user.save()
+                user = authenticate(request,username=username, password=password) 
                 login(request,user)
                 messages.success(request,'User created successfully')
                 messages.success(request,f'Welcome {username}')
