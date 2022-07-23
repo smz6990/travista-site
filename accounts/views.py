@@ -5,7 +5,6 @@ from django.contrib import  messages
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-# from accounts.forms import SignUpForm
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -16,15 +15,13 @@ def login_view(request):
         if request.method == 'POST': 
             password = request.POST['password']    
             
-            if request.POST['username'] != None and request.POST['username'] != '':
-                username = request.POST['username']
-                user = authenticate(request, username=username, password=password)
-                
-            # elif request.POST['email'] != None:
-            #     email = request.POST['email']
-            #     username = User.objects.get(email=email)
-            #     user = authenticate(request, username=username, email=email, password=password)
-                
+            name = request.POST['username']
+            if '@' in name:
+                username = User.objects.get(email=name)
+            else:
+                username = name
+            user = authenticate(request, username=username, password=password)
+            
             if user is not None:
                 login(request, user)
                 messages.success(request, f'Welcome {username}')
