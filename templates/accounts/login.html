@@ -1,40 +1,33 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Log in</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+{% extends 'base.html' %} {% load static %} {% block content %}
 
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-      rel="stylesheet"
-    />
-
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-  </head>
-  <body>
-    <section class="ftco-section">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-6 text-center mb-5">
-            <h2 class="heading-section">Log in</h2>
-          </div>
+<!-- start banner Area -->
+<section class="relative about-banner">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+      <div class="row d-flex align-items-center justify-content-center">
+        <div class="about-content col-lg-12">
+          <h1 class="text-white">Log in</h1>
+          <p class="text-white link-nav">
+            <a href="{% url 'website:index' %}">Home </a>
+            <span class="lnr lnr-arrow-right"></span>
+            <a href="{% url 'accounts:login' %}">Log in</a>
+          </p>
         </div>
+      </div>
+    </div>
+  </section>
+  <!-- End banner Area -->
+  
+
+    <section class="contact-page-area section-gap">
+      <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-7 col-lg-6 col-xl-5">
             <div class="login-wrap p-4 p-md-5">
               <h3 class="mb-4">
                 Hello! <span>Please log in to continue</span>
               </h3>
+
               <form
                 action="{% url 'accounts:login' %}"
                 method="post"
@@ -68,7 +61,6 @@
                   </button>
                 </div>
               </form>
-              {% include 'messages.html' %}
 
               <div class="w-100 social-wrap">
                 <p class="mt-4">
@@ -90,5 +82,5 @@
     <script src="{% static 'js/popper.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
-  </body>
-</html>
+
+{% endblock %}
