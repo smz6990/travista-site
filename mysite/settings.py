@@ -66,6 +66,9 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
 ]
 
+# email for reset password
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # site framework 
 SITE_ID = 2
 
