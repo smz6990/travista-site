@@ -38,6 +38,14 @@ def signup_view(request):
     if not request.user.is_authenticated:
         if request.method == 'POST':
             form = NewUserFrom(request.POST)
+            email = request.POST['email']
+            if User.objects.get(email=email) != None:
+                messages.error(request,'This email is taken')
+                form = NewUserFrom()
+                context = {
+                    'form':form
+                    }
+                return render(request,'accounts/signup.html',context)
             if form.is_valid():
                 user = form.save()
                 login(request,user)
