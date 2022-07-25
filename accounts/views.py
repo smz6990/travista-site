@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect,HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login,logout
 from django.contrib import  messages
@@ -26,19 +26,19 @@ def login_view(request):
                     username = User.objects.get(email=name)
                 except:
                     messages.error(request, 'Invalid username\email or password')
-                    return HttpResponseRedirect(reverse('accounts:login'))
+                    return redirect(reverse('accounts:login'))
             else:
                 username = request.POST['username']
             user = authenticate(request,username=username,password=password)
             if user is not None:
                 login(request,user)
                 messages.info(request,f'Welcome back {username}')
-                return HttpResponseRedirect(reverse('website:index'))
+                return redirect('/')
             else:
                 messages.error(request,'Invalid username\email or password')
         
         return render(request,'accounts/login.html')
-    return HttpResponseRedirect(reverse('website:index'))
+    return redirect('/')
 
 
 def signup_view(request):
@@ -62,7 +62,7 @@ def signup_view(request):
                 login(request,user)
                 messages.success(request,'Account created successfully')
                 messages.success(request,f'Welcome {user.username}')
-                return HttpResponseRedirect(reverse('website:index'))
+                return redirect(reverse('website:index'))
             messages.error(request,'Invalid information')
             messages.error(request,form.errors)
         form = NewUserFrom()
@@ -70,7 +70,7 @@ def signup_view(request):
             'form':form
             }
         return render(request,'accounts/signup.html',context)
-    return HttpResponseRedirect(reverse('website:index'))
+    return redirect(reverse('website:index'))
     
     
     
@@ -79,12 +79,12 @@ def logout_view(request):
  
     logout(request)
     messages.info(request, 'Successfully logged out')      
-    return HttpResponseRedirect(reverse('website:index'))
+    return redirect(reverse('website:index'))
 
 
 def password_reset_request_view(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('website:index'))
+        return redirect(reverse('website:index'))
     if request.method == "POST":
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
@@ -110,7 +110,7 @@ def password_reset_request_view(request):
                         return HttpResponse('Invalid header found.')
                     messages.success(request, 'A message with reset password instructions has been sent to your inbox.')
                     return redirect ("/accounts/password_reset/done/")
-                   # return HttpResponseRedirect(reverse("accounts:password_reset_done")) #
+                   # return redirect(reverse("accounts:password_reset_done")) #
                 messages.error(request, 'An invalid email has been entered.')
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="accounts/password_reset.html", context={"password_reset_form":password_reset_form})

@@ -21,8 +21,8 @@ app_name = 'website'
 urlpatterns = [
     path('', index_view,name='index'),
     path('about/',about_view,name='about'),
-    path('contact',contact_view,name='contact'),
-    path('contact/form',form_view,name='form'),
+    path('contact/',contact_view,name='contact'),
+    path('contact/form/',form_view,name='form'),
     path('newsletter/',newsletter_view,name='newsletter'),
     
     
