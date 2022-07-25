@@ -33,6 +33,8 @@ def login_view(request):
             if user is not None:
                 login(request,user)
                 messages.info(request,f'Welcome back {username}')
+                if 'next' in request.POST:
+                    return redirect (request.POST.get('next','/'))
                 return redirect('/')
             else:
                 messages.error(request,'Invalid username\email or password')
@@ -62,6 +64,8 @@ def signup_view(request):
                 login(request,user)
                 messages.success(request,'Account created successfully')
                 messages.success(request,f'Welcome {user.username}')
+                if 'next' in request.POST:
+                    return redirect (request.POST.get('next','/'))
                 return redirect(reverse('website:index'))
             messages.error(request,'Invalid information')
             messages.error(request,form.errors)
@@ -74,11 +78,13 @@ def signup_view(request):
     
     
     
-@login_required(redirect_field_name='/')
+@login_required()
 def logout_view(request):
  
     logout(request)
-    messages.info(request, 'Successfully logged out')      
+    messages.info(request, 'Successfully logged out') 
+    if 'next' in request.GET:
+        return redirect (request.GET.get('next','/'))     
     return redirect(reverse('website:index'))
 
 

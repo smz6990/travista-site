@@ -8,7 +8,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <!-- Favicon-->
-    <link rel="shortcut icon" href="{% static 'img/fav.png' %}" />
+    <!-- <link rel="shortcut icon" href="{% static 'img/fav.png' %}" /> -->
     <!-- Author Meta -->
     <meta name="author" content="colorlib" />
     <!-- Meta Description -->
@@ -48,10 +48,10 @@
               <ul>
                 {% if request.user.is_authenticated %}
                   <li><a href="#">{{ request.user.username }}</a></li>
-                  <li><a href="{% url 'accounts:logout' %}">Log Out</a></li>
+                  <li><a href="{% url 'accounts:logout' %}?next={{ request.path }}">Log Out</a></li>
                 {% else %}
-                  <li><a href="{% url 'accounts:login' %}">Log In</a></li>
-                  <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
+                  <li><a href="{% url 'accounts:login' %}?next={{ request.path }}">Log In</a></li>
+                  <li><a href="{% url 'accounts:signup' %}?next={{ request.path }}">Sign Up</a></li>
                 {% endif %}
               </ul>
             </div>
@@ -143,6 +143,9 @@
                   method="post"
                   class="subscription relative"
                 >
+                {% if request.GET.next %}
+                  <input type="hidden" name="next" value="{{ request.GET.next }}">
+                {% endif %}
                 {% csrf_token %}
                   <div class="input-group d-flex flex-row">
                     <input

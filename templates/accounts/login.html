@@ -34,6 +34,10 @@
                 class="signup-form"
               >
                 {% csrf_token %}
+
+                {% if request.GET.next %}
+                  <input type="hidden" name="next" value="{{ request.GET.next }}">
+                {% endif %}
                 <div class="form-group mb-4">
                 <label for="username">Username or Email</label>
                   <input

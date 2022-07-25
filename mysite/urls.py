@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path , include
 from django.contrib.sitemaps.views import sitemap
 
+from mysite.views import maintenance_view
+
 from django.conf import settings
 from django.conf.urls.static import static
 from website.sitemaps import StaticViewSitemap
@@ -29,6 +31,9 @@ sitemaps = {
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('website.urls')),
+    
+    path('maintenance/', maintenance_view, name='maintenance'),
+    
     path('blog/',include('blog.urls')),
     path('accounts/',include('accounts.urls')),
     

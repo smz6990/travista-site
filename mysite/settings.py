@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#  setting for maintenance mode middleware
+MAINTENANCE_MODE = True
+
+# setting s for messages
 
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
@@ -97,6 +101,10 @@ MIDDLEWARE = [
     
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
+
+if MAINTENANCE_MODE:
+    # comment code below to off the maintenance mode
+    MIDDLEWARE.append('mysite.middleware.MaintenanceModeMiddleware')
 
 ROOT_URLCONF = 'mysite.urls'
 
@@ -187,3 +195,4 @@ INTERNAL_IPS = [
     "127.0.0.1",
 
 ]
+

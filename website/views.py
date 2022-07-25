@@ -1,5 +1,4 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.urls import reverse
 from django.contrib import  messages
 from website.forms import ContactForm,NewsletterForm
@@ -29,7 +28,7 @@ def form_view(request):
             messages.error(request, 'Invalid form submission.')
             messages.error(request, form.errors)
     # return  render(request,'website/contact.html')
-    return HttpResponseRedirect(reverse('website:contact'))
+    return redirect(reverse('website:contact'))
        
 def newsletter_view(request):
     if request.method == "POST":
@@ -42,5 +41,6 @@ def newsletter_view(request):
             form = NewsletterForm()
             messages.error(request, 'Invalid form submission.')
             messages.error(request, form.errors)
-    
-    return HttpResponseRedirect('/')
+    if 'next' in request.POST:
+        return redirect (request.POST.get('next','/'))
+    return redirect('/')
