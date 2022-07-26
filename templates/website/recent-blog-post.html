@@ -16,7 +16,7 @@
       </div>
       <a href="{% url 'blog:single' id=post.id %}"><h4 class="title">{{ post.title }}</h4></a>
       <p>
-        {{ post.content|truncatewords:12 }}
+        {{ post.content|safe|truncatewords:12 }}
       </p>
       <h6 class="date">{{ post.published_date|date:'dS F,Y' }}</h6>
     </div>

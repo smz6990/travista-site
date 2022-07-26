@@ -1,0 +1,5 @@
+#permanent redirect
+Redirect 301 https://www.domain.ir/ https://domain.ir/
+
+#temporary redirect
+Redirect 302 https://www.domain.ir/ https://domain.ir/

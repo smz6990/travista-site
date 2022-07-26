@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <!-- start banner Area -->
 <section class="relative about-banner">
@@ -19,7 +19,7 @@
   <!-- End banner Area -->
   
 
-    <section class="contact-page-area section-gap">
+    <section class="ftco-section">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-7 col-lg-6 col-xl-5">
@@ -31,7 +31,7 @@
               <form
                 action="{% url 'accounts:login' %}"
                 method="post"
-                class="signup-form"
+                class="signin-form"
               >
                 {% csrf_token %}
 
@@ -44,7 +44,7 @@
                     type="text"
                     name="username"
                     required="" 
-                    class="form-control"
+                    class="common-input mb-20 form-control"
                     placeholder="Username Or Email"
                   />
                 </div>
@@ -54,14 +54,16 @@
                     type="password"
                     name="password"
                     required=""
-                    class="form-control"
+                    class="common-input mb-20 form-control"
+
                     placeholder="Password"
                   />
                 </div>
-                <div class="form-group">
+                <div class="col-lg-12">
+                 <div class="alert-msg" style="text-align: left"></div>   
                   <button
                     type="submit"
-                    class="btn btn-primary rounded submit p-3"
+                    class="genric-btn primary" style="float: center"
                   >
                     Log in
                   </button>
@@ -84,9 +86,5 @@
       </div>
     </section>
 
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/popper.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
 
 {% endblock %}

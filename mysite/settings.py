@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 #  setting for maintenance mode middleware
-MAINTENANCE_MODE = True
+MAINTENANCE_MODE = False
 
 # setting s for messages
 
@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'django.contrib.humanize',
+    
+    "compressor",
     
     'django_summernote',
     'captcha',
@@ -183,6 +185,23 @@ MEDIA_ROOT = BASE_DIR / 'media'
 STATICFILES_DIRS = [
     BASE_DIR / "statics",
 ]
+
+
+# django compressor settings
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+COMPRESS_ENABLED = True
+COMPRESS_CSS_HASHING_METHOD = 'content'
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_dafault.CssAbsoluteFilter',
+    'compressor.filters.cssmin.CSSMinFilter',
+]
+# COMPRESS_STORAGE = 'compressor.storage.CompressorFileStorage'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
